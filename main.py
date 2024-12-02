@@ -6,6 +6,7 @@ import requests
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
+from googlesearch import search
 
 load_dotenv()
 
@@ -52,26 +53,19 @@ def aiProcess(command):
 def processc(c):
     c = c.lower()
 
-    if "open google" in c:
-        print("Opening Google...")
-        webbrowser.open("https://google.com")
-    elif "open facebook" in c:
-        print("Opening Facebook...")
-        webbrowser.open("https://facebook.com")
-    elif "open instagram" in c:
-        print("Opening Instagram...")
-        webbrowser.open("https://instagram.com")
-    elif "open youtube" in c:
-        print("Opening YouTube...")
-        webbrowser.open("https://youtube.com")
-    elif "open linkedin" in c:
-        print("Opening LinkedIn...")
-        webbrowser.open("https://linkedin.com")
+    if c.lower().startswith("open"):
+        try:
+            result = next(search(c, num_results=1))
+            print(f"Opening: {result}")
+            webbrowser.open(result)
+        except StopIteration:
+            print("No results found!")
 
     elif c.lower().startswith("play"):
         song = ' '.join(c.lower().split()[1:])  #["play" , "song(ex-slay)"]
         link = musicLibrary.music[song]
         webbrowser.open(link)
+
 
     elif "news" in c:
             fetch_news()
