@@ -6,7 +6,7 @@ import requests
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
-from googlesearch import search
+from googlesearch import search #pip install googlesearch-python
 
 load_dotenv()
 
@@ -52,7 +52,6 @@ def aiProcess(command):
 
 def processc(c):
     c = c.lower()
-
     if c.lower().startswith("open"):
         try:
             result = next(search(c, num_results=1))
